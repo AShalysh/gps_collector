@@ -9,6 +9,6 @@ RSpec.configure do |config|
   # This boots the app for the rack testings gem
   def app
     path = File.expand_path('../config.ru', File.dirname(__FILE__))
-    @app ||= Rack::Builder.parse_file(path).first    
+    @app ||= Rack::Builder.parse_file(path).first
   end
 end

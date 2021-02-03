@@ -1,17 +1,17 @@
 class MainController < Controller
   def create
-    @content = ["points"]
+    @content = ['points']
   end
 
   def show
-    @content = ["show"]
-  end  
+    @content = ['show']
+  end
 
   def radius
-    @content = ["Radius"]
+    @content = ['Radius']
   end
-  
+
   def polygon
-    @content = ["Polygon"]
+    @content = ['Polygon']
   end
 end

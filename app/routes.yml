@@ -1,0 +1,3 @@
+"POST /points" : "main#create"
+"GET /radius": "main#radius"
+"GET /polygon": "main#polygon"

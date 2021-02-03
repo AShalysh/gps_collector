@@ -3,10 +3,6 @@ class MainController < Controller
     @content = ['points']
   end
 
-  def show
-    @content = ['show']
-  end
-
   def radius
     @content = ['Radius']
   end

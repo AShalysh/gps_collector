@@ -7,7 +7,7 @@ class Router
   def initialize(routes)
     @routes = routes
   end
-  
+
   # Method produces the key (for example - 'GET /polygon') as a combination of
   # http REQUEST_METHOD (for example - 'GET') and PATH_INFO (for example - '/polygon')
   # If the key exists in the routes then use the corresponding string value (for example 'main#polygon') as a param in the

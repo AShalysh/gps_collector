@@ -22,7 +22,7 @@ class Controller
     self.content = @content
     self
   end
-  
+
   # This runs if key in Controller was not found,
   # sets new status, headers and content to itself
   #

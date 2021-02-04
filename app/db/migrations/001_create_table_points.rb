@@ -1,3 +1,5 @@
+# This runs DB migration - creates a points table with id and points column
+# Index will speed up the search
 Sequel.migration do
   up do
     create_table :points do

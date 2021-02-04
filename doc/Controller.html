@@ -279,7 +279,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>This runs the specified in action method in MainController (for example,
+&#39;polygon&#39;), sets new status, headers and content to itself.</p>
+</div></span>
   
 </li>
 
@@ -304,7 +307,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of Controller.</p>
+<p>Initialize name and action.</p>
 </div></span>
   
 </li>
@@ -327,7 +330,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>This runs if there is an internal error in Controller, sets new status,
+headers and content to itself.</p>
+</div></span>
   
 </li>
 
@@ -349,7 +355,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>This runs if key in Controller was not found, sets new status, headers and
+content to itself.</p>
+</div></span>
   
 </li>
 
@@ -372,7 +381,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of Controller.</p>
+<p>Initialize name and action</p>
 
 
   </div>
@@ -679,26 +688,56 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>This runs the specified in action method in MainController (for example,
+&#39;polygon&#39;), sets new status, headers and content to itself</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>self</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-14
-15
-16
-17
 18
 19
-20</pre>
+20
+21
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
-  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span> <span class='comment'># &quot;polygon&quot;
-</span>  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='int'>200</span>
+  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='int'>200</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='ivar'>@content</span>
   <span class='kw'>self</span>
@@ -717,21 +756,51 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>This runs if there is an internal error in Controller, sets new status,
+headers and content to itself</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>self</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-29
-30
-31
-32
-33
-34</pre>
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_internal_error'>internal_error</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='int'>500</span>
@@ -753,21 +822,51 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>This runs if key in Controller was not found, sets new status, headers and
+content to itself</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>self</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-22
-23
-24
-25
-26
-27</pre>
+30
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_not_found'>not_found</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='int'>404</span>
@@ -785,7 +884,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Feb  3 21:01:52 2021 by
+  Generated on Thu Feb  4 15:54:09 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.5.1).
 </div>

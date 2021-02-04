@@ -17,6 +17,7 @@ if DB
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), 'app', 'db', 'migrations'))
 end
 
+# This runs our App
 class App
   attr_reader :router
 

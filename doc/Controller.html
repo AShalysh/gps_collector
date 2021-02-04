@@ -99,7 +99,18 @@
   
 </div>
 
-<div id="subclasses">
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Defining base Controller</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
   <p class="children"><span class='object_link'><a href="MainController.html" title="MainController (class)">MainController</a></span></p>
 </div>
@@ -435,13 +446,13 @@ content to itself.</p>
       <pre class="lines">
 
 
-9
-10
-11
-12</pre>
+12
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>action:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
@@ -485,12 +496,12 @@ content to itself.</p>
       <pre class="lines">
 
 
-2
-3
-4</pre>
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 2</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action'>action</span>
   <span class='ivar'>@action</span>
@@ -528,12 +539,12 @@ content to itself.</p>
       <pre class="lines">
 
 
-3
-4
-5</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 3</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content'>content</span>
   <span class='ivar'>@content</span>
@@ -571,12 +582,12 @@ content to itself.</p>
       <pre class="lines">
 
 
-3
-4
-5</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 3</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_headers'>headers</span>
   <span class='ivar'>@headers</span>
@@ -614,12 +625,12 @@ content to itself.</p>
       <pre class="lines">
 
 
-2
-3
-4</pre>
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 2</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
@@ -657,12 +668,12 @@ content to itself.</p>
       <pre class="lines">
 
 
-3
-4
-5</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 3</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status'>status</span>
   <span class='ivar'>@status</span>
@@ -724,16 +735,16 @@ content to itself.</p>
       <pre class="lines">
 
 
-18
-19
-20
 21
 22
 23
-24</pre>
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span>
@@ -792,15 +803,15 @@ headers and content to itself</p>
       <pre class="lines">
 
 
-41
-42
-43
 44
 45
-46</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_internal_error'>internal_error</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='int'>500</span>
@@ -858,15 +869,15 @@ content to itself</p>
       <pre class="lines">
 
 
-30
-31
-32
 33
 34
-35</pre>
+35
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'app/lib/controller.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_not_found'>not_found</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='int'>404</span>
@@ -884,7 +895,7 @@ content to itself</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Feb  4 15:54:09 2021 by
+  Generated on Thu Feb  4 18:45:03 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.5.1).
 </div>

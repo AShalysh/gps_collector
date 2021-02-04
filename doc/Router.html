@@ -99,7 +99,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Defining router</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -254,12 +265,12 @@ routes then use the corresponding string value (for example
       <pre class="lines">
 
 
-7
-8
-9</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/router.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'app/lib/router.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_routes'>routes</span><span class='rparen'>)</span>
   <span class='ivar'>@routes</span> <span class='op'>=</span> <span class='id identifier rubyid_routes'>routes</span>
@@ -302,12 +313,12 @@ routes then use the corresponding string value (for example
       <pre class="lines">
 
 
-2
-3
-4</pre>
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/router.rb', line 2</span>
+      <pre class="code"><span class="info file"># File 'app/lib/router.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_routes'>routes</span>
   <span class='ivar'>@routes</span>
@@ -382,9 +393,6 @@ end it calls method &#39;call&#39; in controller.rb</p>
       <pre class="lines">
 
 
-17
-18
-19
 20
 21
 22
@@ -394,26 +402,17 @@ end it calls method &#39;call&#39; in controller.rb</p>
 26
 27
 28
-29
-30
-31
-32</pre>
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/lib/router.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'app/lib/router.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resolve'>resolve</span><span class='lparen'>(</span><span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>REQUEST_METHOD</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PATH_INFO</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_routes'>routes</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_routes'>routes</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_create_controller'>create_controller</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
-  <span class='kw'>else</span>
-    <span class='const'><span class='object_link'><a href="Controller.html" title="Controller (class)">Controller</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Controller.html#initialize-instance_method" title="Controller#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_not_found'><span class='object_link'><a href="Controller.html#not_found-instance_method" title="Controller#not_found (method)">not_found</a></span></span>
-  <span class='kw'>end</span>
-<span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_do_action'>do_action</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span>
   <span class='const'><span class='object_link'><a href="Controller.html" title="Controller (class)">Controller</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Controller.html#initialize-instance_method" title="Controller#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_internal_error'><span class='object_link'><a href="Controller.html#internal_error-instance_method" title="Controller#internal_error (method)">internal_error</a></span></span>
@@ -428,7 +427,7 @@ end it calls method &#39;call&#39; in controller.rb</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Feb  4 15:54:08 2021 by
+  Generated on Thu Feb  4 18:45:03 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.5.1).
 </div>

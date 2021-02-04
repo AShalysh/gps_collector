@@ -2,6 +2,10 @@ class Controller
   attr_reader :name, :action
   attr_accessor :status, :headers, :content
 
+  # Initialize name and action
+
+  # @param [String] name Inputs the name
+  # @param [String] action Inputs the action name
   def initialize(name: nil, action: nil)
     @name = name
     @action = action

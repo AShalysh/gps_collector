@@ -8,10 +8,15 @@ Dir[File.join(File.dirname(__FILE__), 'app', '**', '*.rb')].each { |file| requir
 class App
   attr_reader :router
 
+  # The method is used to initialize router with routes
   def initialize
     @router = Router.new(ROUTES)
   end
 
+  # The method takes env to get to the right controller via router
+  #
+  # @param [Hash] env from rack
+  # @see http://rubydoc.info/github/rack/rack/master/file/SPEC for specification of env
   def call(env)
     result = router.resolve(env) # MainController (status headers and content set to something)
     [result.status, result.headers, result.content]

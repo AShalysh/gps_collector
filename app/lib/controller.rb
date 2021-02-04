@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Defining base Controller
 class Controller
   attr_reader :name, :action
   attr_accessor :status, :headers, :content

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe App do
   context 'get to /polygon' do
     let(:response) { get '/polygon' }

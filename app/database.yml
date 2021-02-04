@@ -1,0 +1,6 @@
+adapter: postgres
+host: 0.0.0.0
+username: gps_collector
+password: gps_collector
+database: gps_collector
+port: 5432

@@ -12,6 +12,7 @@ if File.exist?(db_config_file)
 end
 
 Dir[File.join(File.dirname(__FILE__), 'app', 'lib', '*.rb')].sort.each { |file| require file }
+Dir[File.join(File.dirname(__FILE__), 'app', 'helpers', '*.rb')].sort.each { |file| require file }
 Dir[File.join(File.dirname(__FILE__), 'app', '**', '*.rb')].sort.each { |file| require file }
 
 Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), 'app', 'db', 'migrations')) if DB

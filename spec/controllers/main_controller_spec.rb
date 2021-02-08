@@ -113,7 +113,7 @@ describe MainController do
         it { expect(last_response.status).to eq 422 }
         it {
           expect(JSON.parse(last_response.body)).to eq(
-            {'error' => 'Params are not correct'}
+            { 'error' => 'Params are not correct' }
           )
         }
       end
@@ -136,7 +136,7 @@ describe MainController do
         MainController.any_instance.stub(:params).and_return(JSON.parse(params.to_json))
 
         # Set headers
-        header = { 'HTTP_X_HTTP_METHOD_OVERRIDE' => 'GET', 'CONTENT_TYPE' => 'application/json' }
+        header = { 'CONTENT_TYPE' => 'application/json' }
         get '/radius', params.to_json, header
       end
 
@@ -213,10 +213,10 @@ describe MainController do
         it { expect(last_response.status).to eq 422 }
         it {
           expect(JSON.parse(last_response.body)).to eq(
-            {'error' => 'Params are not correct'}
+            { 'error' => 'Params are not correct' }
           )
         }
-      end  
+      end
     end
   end
 
@@ -228,7 +228,7 @@ describe MainController do
       end
 
       before do
-        # Set some dummy data        
+        # Set some dummy data
         DB[:points].insert(point: 'point(1.0 1.0)')
         DB[:points].insert(point: 'point(2.0 2.0)')
 
@@ -236,7 +236,7 @@ describe MainController do
         MainController.any_instance.stub(:params).and_return(JSON.parse(params.to_json))
 
         # Set headers
-        header = { 'HTTP_X_HTTP_METHOD_OVERRIDE' => 'GET', 'CONTENT_TYPE' => 'application/json' }
+        header = { 'CONTENT_TYPE' => 'application/json' }
         get '/polygon', params.to_json, header
       end
 
@@ -325,11 +325,10 @@ describe MainController do
         it { expect(last_response.status).to eq 422 }
         it {
           expect(JSON.parse(last_response.body)).to eq(
-            {'error' => 'Params are not correct'}
+            { 'error' => 'Params are not correct' }
           )
         }
-
-      end  
+      end
     end
   end
 

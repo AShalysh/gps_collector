@@ -68,28 +68,37 @@ class MainController < Controller
   def polygon
     validate_polygon_input
     @content = [within_polygon.map { |point| to_geojson(point) }.to_json]
-  end  
+  end
 
   # Validates points params
   def validate_points_input
-    if !params.kind_of?(Array) || (params.reject {|geom| ["Point", "GeometryCollection"].include?(geom["type"]) }.count > 0)
-      raise ArgumentError.new("Params are not correct") 
+    if !params.is_a?(Array) || params.reject do |geom|
+         %w[Point GeometryCollection].include?(geom['type'])
+       end.count.positive?
+      raise ArgumentError, 'Params are not correct'
     end
   end
 
   # Validates radius params
   def validate_radius_input
-    if !params.kind_of?(Hash) || !params["geometry"] || geometry["type"] != "Point" || !params["radius"] || !geometry["coordinates"].kind_of?(Array)
-      raise ArgumentError.new("Params are not correct")
-    end
+    unless !params.is_a?(Hash) ||
+           !geometry ||
+           geometry['type'] != 'Point' ||
+           !params['radius'] ||
+           !geometry['coordinates'].is_a?(Array)
+      return; end
+
+    raise ArgumentError, 'Params are not correct'
   end
 
   # Validates polygon params
   def validate_polygon_input
-    if !params.kind_of?(Hash) || !params["geometry"] || geometry["type"] != "Polygon" || !geometry["coordinates"].kind_of?(Array)
-      raise ArgumentError.new("Params are not correct")
-    end
+    unless !params.is_a?(Hash) ||
+           !geometry ||
+           geometry['type'] != 'Polygon' ||
+           !geometry['coordinates'].is_a?(Array)
+      return; end
+
+    raise ArgumentError, 'Params are not correct'
   end
-
-
 end

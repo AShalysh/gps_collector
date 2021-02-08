@@ -101,7 +101,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>app/controllers/main.rb</dd>
+    <dd>app/controllers/main_controller.rb</dd>
   </dl>
   
 </div>
@@ -212,8 +212,80 @@ Expected request params looks like: [   {     “type”: “GeometryCollection�
   
     <span class="summary_desc"><div class='inline'>
 <p>Getting points within radius Expected request params looks like: {  
-“geometry”: {     “type”: “Point”,     “coordinates”: [3.0, 3.0] },  
-“radius”: {     “length”: 3000   } }.</p>
+“geometry”: {     “type”: “Point”,     “coordinates”: [3.0, 3.0]   },  
+“radius”: 3000 }.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate_points_input-instance_method" title="#validate_points_input (instance method)">#<strong>validate_points_input</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Validates points params.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate_polygon_input-instance_method" title="#validate_polygon_input (instance method)">#<strong>validate_polygon_input</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Validates polygon params.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate_radius_input-instance_method" title="#validate_radius_input (instance method)">#<strong>validate_radius_input</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Validates radius params.</p>
 </div></span>
   
 </li>
@@ -304,8 +376,6 @@ Expected request params looks like: [</p>
       <pre class="lines">
 
 
-26
-27
 28
 29
 30
@@ -313,12 +383,16 @@ Expected request params looks like: [</p>
 32
 33
 34
-35</pre>
+35
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/main.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/main_controller.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
+  <span class='id identifier rubyid_validate_points_input'>validate_points_input</span>
   <span class='id identifier rubyid_points'>points</span> <span class='op'>=</span> <span class='id identifier rubyid_points_to_sql'>points_to_sql</span>
   <span class='const'>DB</span><span class='period'>.</span><span class='id identifier rubyid_transaction'>transaction</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_points'>points</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_point'>point</span><span class='op'>|</span>
@@ -374,14 +448,16 @@ Expected request params looks like: [</p>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/main.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/main_controller.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_polygon'>polygon</span>
+  <span class='id identifier rubyid_validate_polygon_input'>validate_polygon_input</span>
   <span class='ivar'>@content</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_within_polygon'>within_polygon</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_point'>point</span><span class='op'>|</span> <span class='id identifier rubyid_to_geojson'>to_geojson</span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -401,17 +477,13 @@ Expected request params looks like: [</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Getting points within radius Expected request params looks like: 
+<p>Getting points within radius Expected request params looks like: {</p>
+
 <pre class="code ruby"><code class="ruby">&quot;geometry&quot;: {
   &quot;type&quot;: &quot;Point&quot;,
   &quot;coordinates&quot;: [3.0, 3.0]
-</code></pre>
-
-<p>,</p>
-
-<pre class="code ruby"><code class="ruby">&quot;radius&quot;: {
-  &quot;length&quot;: 3000
-}
+},
+&quot;radius&quot;: 3000
 </code></pre>
 
 <p>}</p>
@@ -428,15 +500,200 @@ Expected request params looks like: [</p>
       <pre class="lines">
 
 
-48
 49
-50</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/main.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/main_controller.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_radius'>radius</span>
+  <span class='id identifier rubyid_validate_radius_input'>validate_radius_input</span>
   <span class='ivar'>@content</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_within_radius'>within_radius</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_point'>point</span><span class='op'>|</span> <span class='id identifier rubyid_to_geojson'>to_geojson</span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_points_input-instance_method">
+  
+    #<strong>validate_points_input</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Validates points params</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/main_controller.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_points_input'>validate_points_input</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_geom'>geom</span><span class='op'>|</span>
+       <span class='qwords_beg'>%w[</span><span class='tstring_content'>Point</span><span class='words_sep'> </span><span class='tstring_content'>GeometryCollection</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_geom'>geom</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+     <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Params are not correct</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_polygon_input-instance_method">
+  
+    #<strong>validate_polygon_input</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Validates polygon params</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/main_controller.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_polygon_input'>validate_polygon_input</span>
+  <span class='kw'>unless</span> <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>||</span>
+         <span class='op'>!</span><span class='id identifier rubyid_geometry'>geometry</span> <span class='op'>||</span>
+         <span class='id identifier rubyid_geometry'>geometry</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Polygon</span><span class='tstring_end'>&#39;</span></span> <span class='op'>||</span>
+         <span class='op'>!</span><span class='id identifier rubyid_geometry'>geometry</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>coordinates</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='kw'>return</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Params are not correct</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_radius_input-instance_method">
+  
+    #<strong>validate_radius_input</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Validates radius params</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/controllers/main_controller.rb', line 83</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_radius_input'>validate_radius_input</span>
+  <span class='kw'>unless</span> <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>||</span>
+         <span class='op'>!</span><span class='id identifier rubyid_geometry'>geometry</span> <span class='op'>||</span>
+         <span class='id identifier rubyid_geometry'>geometry</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Point</span><span class='tstring_end'>&#39;</span></span> <span class='op'>||</span>
+         <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>radius</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span>
+         <span class='op'>!</span><span class='id identifier rubyid_geometry'>geometry</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>coordinates</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='kw'>return</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Params are not correct</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -448,7 +705,7 @@ Expected request params looks like: [</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Feb  7 20:22:54 2021 by
+  Generated on Mon Feb  8 01:13:23 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.5.1).
 </div>

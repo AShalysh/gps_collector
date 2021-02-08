@@ -25,6 +25,11 @@ class Controller
     self.headers = { 'Content-Type' => 'application/json' }
     self.content = @content
     self
+    rescue StandardError => e
+      self.status = 422
+      self.headers = { 'Content-Type' => 'application/json' }
+      self.content = [{error: e.message}.to_json]
+      self
   end
 
   # This runs if key in Controller was not found,

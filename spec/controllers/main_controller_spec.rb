@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 describe MainController do
+  # Clear database before running tests
+  before { DB[:points].delete }
+
   context 'post to /points' do
     describe '#points' do
       subject { post '/points', params.to_json, { 'CONTENT_TYPE' => 'application/json' } }
@@ -93,6 +96,27 @@ describe MainController do
         end
         it_behaves_like('it creates points', 4)
       end
+
+      context 'invalid params catch' do
+        let(:params) do
+          [
+            {
+              'type': 'WRONG',
+              'coordinates': [1.0, 1.0]
+            },
+            {
+              'type': 'Point',
+              'coordinates': [2.0, 2.0]
+            }
+          ]
+        end
+        it { expect(last_response.status).to eq 422 }
+        it {
+          expect(JSON.parse(last_response.body)).to eq(
+            {'error' => 'Params are not correct'}
+          )
+        }
+      end
     end
   end
 
@@ -171,6 +195,28 @@ describe MainController do
 
         it_behaves_like('it finds points in radius', [])
       end
+
+      context 'invalid params catch' do
+        let(:params) do
+          {
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [
+                5.0,
+                5.0
+              ]
+            },
+            'WRONG': 156_000
+          }
+        end
+
+        it { expect(last_response.status).to eq 422 }
+        it {
+          expect(JSON.parse(last_response.body)).to eq(
+            {'error' => 'Params are not correct'}
+          )
+        }
+      end  
     end
   end
 
@@ -182,7 +228,7 @@ describe MainController do
       end
 
       before do
-        # Set some dummy data
+        # Set some dummy data        
         DB[:points].insert(point: 'point(1.0 1.0)')
         DB[:points].insert(point: 'point(2.0 2.0)')
 
@@ -258,6 +304,32 @@ describe MainController do
 
         it_behaves_like('it finds points in polygon', [])
       end
+
+      context 'invalid params catch' do
+        let(:params) do
+          {
+            "geometry":
+            {
+              "type": 'WRONG',
+              "coordinates": [
+                [1.0, 1.0],
+                [1.0, -1.0],
+                [-1.0, -1.0],
+                [-1.0, 1.0],
+                [1.0, 1.0]
+              ]
+            }
+          }
+        end
+
+        it { expect(last_response.status).to eq 422 }
+        it {
+          expect(JSON.parse(last_response.body)).to eq(
+            {'error' => 'Params are not correct'}
+          )
+        }
+
+      end  
     end
   end
 

@@ -2,16 +2,17 @@
 
 # Defining base Controller
 class Controller
-  attr_reader :name, :action
+  attr_reader :name, :action, :request
   attr_accessor :status, :headers, :content
 
   # Initialize name and action
   #
   # @param [String] name Inputs the name
   # @param [String] action Inputs the action name
-  def initialize(name: nil, action: nil)
+  def initialize(name: nil, action: nil, request: nil)
     @name = name
     @action = action
+    @request = request
   end
 
   # This runs the specified in action method in MainController (for example, 'polygon'),
@@ -20,8 +21,8 @@ class Controller
   # @return [Object] self
   def call
     send(action)
-    self.status = 200
-    self.headers = { 'Content-Type' => 'text/html' }
+    self.status = @status || 200
+    self.headers = { 'Content-Type' => 'application/json' }
     self.content = @content
     self
   end
@@ -46,5 +47,10 @@ class Controller
     self.headers = {}
     self.content = ['Internal error']
     self
+  end
+  
+  # Setting params from request in JSON format
+  def params
+    @params ||= JSON.parse(request.body.read)
   end
 end

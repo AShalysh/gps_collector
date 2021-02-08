@@ -2,7 +2,7 @@
 
 # Defining router
 class Router
-  attr_reader :routes
+  attr_reader :routes, :request
 
   # Initialize routes
   #
@@ -18,6 +18,7 @@ class Router
   # @param [Hash] env from rack
   # @see http://rubydoc.info/github/rack/rack/master/file/SPEC for specification of env
   def resolve(env)
+    @request = Rack::Request.new(env)
     method = env['REQUEST_METHOD']
     path = env['PATH_INFO']
     key = "#{method} #{path}"
@@ -28,13 +29,12 @@ class Router
     Controller.new.internal_error
   end
 
-  # Method makes a controller instance. It splits controller name and action, for example '["main", "polygon"]'
-  # then creates an instance of controller (for example 'MainController')
-  #
-  # @param [String] ctrl_action that is controller name and action split by a '#' (for example "main#polygon")
-  # @return [Controller] new controller
   private
 
+  # Checking if the key exists in the routes
+  #
+  # @param [String] key "#{method} #{path}"
+  # @return [String] key "#{method} #{path}" or not_found
   def do_action(key)
     if routes.key?(key)
       value = routes[key]
@@ -44,9 +44,14 @@ class Router
     end
   end
 
+  # Method makes a controller instance. It splits controller name and action, for example '["main", "polygon"]'
+  # then creates an instance of controller (for example 'MainController')
+  #
+  # @param [String] ctrl_action that is controller name and action split by a '#' (for example "main#polygon")
+  # @return [Controller] new controller
   def create_controller(ctrl_action)
     ctrl_name, action_name = ctrl_action.split('#')
     klass = Object.const_get "#{ctrl_name.capitalize}Controller"
-    klass.new(name: ctrl_name, action: action_name.to_sym)
+    klass.new(name: ctrl_name, action: action_name.to_sym, request: request)
   end
 end

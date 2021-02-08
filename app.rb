@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'yaml'
-require 'pry'
+require 'byebug'
 ROUTES = YAML.safe_load(File.read(File.join(File.dirname(__FILE__), 'app', 'routes.yml')))
 
 db_config_file = File.join(File.dirname(__FILE__), 'app', 'database.yml')

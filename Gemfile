@@ -10,8 +10,9 @@ gem 'sequel'
 
 # Testing
 group :development, :test do
-  gem 'pry'
+  gem 'byebug'
   gem 'rack-test'
+  gem 'rb-readline'
   gem 'rspec'
   gem 'rubocop'
   gem 'yard'

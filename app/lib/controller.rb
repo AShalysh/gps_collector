@@ -48,7 +48,7 @@ class Controller
     self.content = ['Internal error']
     self
   end
-  
+
   # Setting params from request in JSON format
   def params
     @params ||= JSON.parse(request.body.read)

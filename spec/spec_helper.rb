@@ -11,7 +11,7 @@ RSpec.configure do |config|
   end
   config.include Rack::Test::Methods
   config.around(:each) do |example|
-    DB.transaction(:rollback=>:always, :auto_savepoint=>true){example.run}
+    DB.transaction(rollback: :always, auto_savepoint: true) { example.run }
   end
 
   # This method boots the app for the rack testings gem

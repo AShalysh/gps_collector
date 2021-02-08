@@ -2,7 +2,6 @@
 
 # This containes all main controller actions for app
 class MainController < Controller
-  
   # Does point insertion in DB, @content is set to number of points inserted
   # Expected request params looks like:
   # [
@@ -26,15 +25,15 @@ class MainController < Controller
   # ]
   def create
     points = points_to_sql
-    DB.transaction do      
+    DB.transaction do
       points.each do |point|
         DB[:points].insert(point: point)
       end
     end
     @status = 201
-    @content = [{result: "#{points.size} points inserted successfully"}.to_json]
+    @content = [{ result: "#{points.size} points inserted successfully" }.to_json]
   end
-  
+
   # Getting points within radius
   # Expected request params looks like:
   # {
@@ -70,13 +69,13 @@ class MainController < Controller
 
   private
 
-  # Defining points by interating over the request params. 
+  # Defining points by interating over the request params.
   # If object type is a 'Point' then format it as a string for sql i.e. 'point(3.0 3.0)'
   # If the object is a 'GeometryCollection' then we iterate over the points under 'geometries'
   # and format them as ['point(1.0 2.0)', 'point(1.0 1.0)'].
   # Then we combine all the postgis elements together in a single array and flatten them so it is
   # just an array of point strings formatted for postgis
-  # @return [Array<String>] - an array of point strings formatted for postGis i.e. ["point(1.0 2.0)", "point( 1.0, 1.0)"]
+  # @return [Array<String>] - an array of point strings formatted for postGis i.e.["point(1.0 2.0)", "point( 1.0, 1.0)"]
   def points_to_sql
     points = params.map do |hash|
       case hash['type']
@@ -86,7 +85,7 @@ class MainController < Controller
     end
     points.flatten
   end
-  
+
   # Formating point into (for example "2.0 2.0")
   #
   # @param [Hash] point as geojson - i.e. { "type": "Point", "coordinates": [1.0, 1.0] }
@@ -96,7 +95,7 @@ class MainController < Controller
   end
 
   # Formating polygon for postgis
-  # geometry (from params) should be formatted   
+  # geometry (from params) should be formatted
   # {
   #   "type": "Polygon",
   #   "coordinates": [
@@ -111,7 +110,7 @@ class MainController < Controller
   def polygon_to_sql
     "polygon((#{geometry['coordinates'].map { |point| "#{point[0].to_f} #{point[1].to_f}" }.join(', ')}))"
   end
-  
+
   # SQL for radius, uses params["radius"] in meters
   # @see https://postgis.net/docs/ST_DWithin.html - Returns true if the geometries are within a given distance
   # @see https://postgis.net/docs/ST_X.html - used to get the x and y coordinate of the point for display purposes
@@ -119,7 +118,7 @@ class MainController < Controller
   # from point string (i.e. point(1.0 1.0))
   # @return [Array<Hash>] DB result array of hashes with each hash being a row from the returned results
   # i.e. [{id: 1, longitude: 1.0, latitude: 1.0}, {id: 3, longitude: 2.0, latitude: 2.0}, ...]
-  def within_radius    
+  def within_radius
     DB[<<~SQL]
       SELECT
         ST_X(points.point::geometry) AS longitude,
@@ -132,7 +131,7 @@ class MainController < Controller
   # SQL for poligon
   # @see https://postgis.net/docs/ST_Within.html - Returns true if the geometry point is within polygon (A within B)
   # @see https://postgis.net/docs/ST_X.html - used to get the x and y coordinate of the point for display purposes
-  # @see https://postgis.net/docs/ST_GeomFromText.html - Constructs a PostGIS ST_Geometry object for polygon (4326 needed 
+  # @see https://postgis.net/docs/ST_GeomFromText.html -Constructs a PostGIS ST_Geometry object for polygon (4326 needed
   # to force the correct SRID)
   # @return [Array<Hash>] DB result array of hashes with each hash being a row from the returned results
   # i.e. [{id: 1, longitude: 1.0, latitude: 1.0}, {id: 3, longitude: 2.0, latitude: 2.0}, ...]
@@ -154,7 +153,7 @@ class MainController < Controller
       'coordinates': [point[:longitude], point[:latitude]]
     }
   end
-  
+
   # @return [Hash] the geometry object from geojson params
   def geometry
     params['geometry']

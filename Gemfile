@@ -11,6 +11,7 @@ gem 'sequel'
 # Testing
 group :development, :test do
   gem 'byebug'
+  gem 'rake'
   gem 'rack-test'
   gem 'rb-readline'
   gem 'rspec'
